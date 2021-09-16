@@ -1,0 +1,48 @@
+tapechars:
+    [
+    0,1,border
+    ]
+
+states:
+    - right:
+        name: A
+        maps:
+            - 0:
+                to: 0
+                dir: R
+                next: A
+            - 1:
+                to: 1
+                dir: R
+                next: A
+            - border:
+                next: B
+    - carry:
+        name: B
+        maps:
+            - 0:
+                to: 1
+                dir: L
+                next: A
+            - 1:
+                to: 0
+                dir: L
+                next: B
+            - border:
+                next: B
+               
+options:
+    rows: 10
+    start:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 1
+        - 1
+        - 1
+        - 0
+        - 0
+        - 1
+    head_pos: 0
+    head_state: A
