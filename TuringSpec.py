@@ -73,6 +73,43 @@ for tapechar in tapechars:
 			"blank"))
 
 for state in states:
+	sides.append(str(state.name)) #head/state transition
+	for tapechar in tapechars:
+		if tapechar != "border":
+			sides.append(str(state.name)+str(tapechar)) #state action
+	for mapping in state.mappings[0]:
+		map_info = list(mapping.values())[0]
+		curr_tapechar = str(list(mapping.keys())[0])
+		if curr_tapechar == "border":
+			for tapechar in tapechars:
+				pre_spec.append((str(state.name)+str(tapechar),"blank",str(map_info["next"])+str(tapechar),"border"))
+				pre_spec.append((str(state.name)+str(tapechar),"border",str(map_info["next"])+str(tapechar),"blank"))
+			continue
+		new_tile = []
+		new_tile.append(str(state.name)+curr_tapechar)
+		if Border:
+			new_border_tile = new_tile.copy()
+		if map_info["dir"] == "R": #R means UP
+			new_tile.append("blank")
+			new_tile.append(map_info["to"])
+			new_tile.append(map_info["next"])
+			if Border:
+				new_border_tile.append("border")
+				new_border_tile.append(str(map_info["to"]))
+				new_border_tile.append(map_info["next"])
+		elif map_info["dir"] == "L": #L means DOWN
+			new_tile.append(map_info["next"])
+			new_tile.append(map_info["to"])
+			new_tile.append("blank")
+			if Border:
+				new_border_tile.append(map_info["next"])
+				new_border_tile.append(str(map_info["to"]))
+				new_border_tile.append("border")
+		pre_spec.append(tuple(new_tile))
+		if Border:
+			pre_spec.append(tuple(new_border_tile))
+		if Border:
+			pre_spec.append(("border","border","","blank"))
 
 
 
@@ -88,12 +125,15 @@ for i,unique_char in enumerate(sides):
 	elif unique_char == "border":
 		sides_dict.update({"border":((80,80,80))})
 
+sides_dict["0"]=(0,0,0)
+sides_dict["1"]=(255,255,255)
+
 pre_spec.append(("error","error","error","error"))
 
 spec = []
 for row in pre_spec:
 	new_row = []
 	for element in row:
-		new_row.append(sides_dict[element])
+		new_row.append(sides_dict[str(element)])
 	spec.append(new_row)
 pass

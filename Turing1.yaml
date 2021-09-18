@@ -28,8 +28,6 @@ states:
                 to: 0
                 dir: L
                 next: B
-            - border:
-                next: B
                
 options:
     rows: 10

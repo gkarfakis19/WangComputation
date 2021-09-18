@@ -1,11 +1,11 @@
 import cv2 as cv
 import numpy as np
-from TuringSpec import *
+from CrippledTuringSpec import *
 
 Manual = True
 if Manual:
-    W = 50
-    H = 50
+    W = 6
+    H = 6
 
     RED = (0,0,255)
     GREEN = (0,255,0)
@@ -20,6 +20,10 @@ if Manual:
     NAVY = (160,70,0)
     GREY = (180,180,180)
     DGREY = (110,110,110)
+    COL0 = (200,200,0)
+    COL1 = (80,0,80)
+    COL2 = (80,80,0)
+    COL3 = (200,200,0)
     NOP = (0)
     WHITE = NOP
 
@@ -49,7 +53,7 @@ if Manual:
 
     def TileGen(spec):
         image_arr = []
-        for row in spec:
+        for i,row in enumerate(spec):
             image = np.zeros((W,H,3),dtype=np.uint8)
             image[:][:][:] = 255;
 
@@ -58,13 +62,12 @@ if Manual:
                 index+=1
                 if column!=0:
                     triangle_fill(image,index,column)
-            my_line(image,(0,0),(W,H))
-            my_line(image,(0,H),(W,0))
-
-            my_line(image,(0,0),(0,H))
-            my_line(image,(0,H),(W,H))
-            my_line(image,(W,H),(W,0))
-            my_line(image,(W,0),(0,0))
+            #my_line(image,(0,0),(W,H))
+            #my_line(image,(0,H),(W,0))
+            #my_line(image,(0,0),(0,H))
+            #my_line(image,(0,H),(W,H))
+            #my_line(image,(W,H),(W,0))
+            #my_line(image,(W,0),(0,0))
             image_arr.append(image)
 
         return image_arr;

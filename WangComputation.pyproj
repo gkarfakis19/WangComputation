@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>6a69fb78-aaf5-404f-a4e6-858ddb677bcc</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>TileGen.py</StartupFile>
+    <StartupFile>WangComputation.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +23,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CrippledTuringSpec.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="TuringSpec.py">
       <SubType>Code</SubType>
     </Compile>
