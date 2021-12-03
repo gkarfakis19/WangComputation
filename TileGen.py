@@ -1,11 +1,15 @@
 import cv2 as cv
 import numpy as np
-from CrippledTuringSpec import *
+from MinTuringSpec import *
 
 Manual = True
 if Manual:
-    W = 6
-    H = 6
+    if "size" in vars():
+        W=size
+        H=size
+    else:
+        W=20
+        H=20
 
     RED = (0,0,255)
     GREEN = (0,255,0)

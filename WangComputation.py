@@ -479,26 +479,18 @@ if __name__=='__main__' and Mode == Modes.TURINGWBORDERS_M:
 if __name__=='__main__' and Mode == Modes.TURING_M:
 
 
-	UP_BORDER_COLOUR = sides_dict["blank"]
-	DOWN_BORDER_COLOUR = sides_dict["blank"]
 
 	pygame.init()
 	screen = pygame.display.set_mode(DISP)
 	screen.fill((255, 255, 255))
-	rows = 37
 	cols = int(DISP[0]/W)
-
 
 	preset_table = []
 	for i in range(0,rows):
 		preset_table.append((0,i))
 
-	preset_tiles = []
-	for i in range(0,rows):
-		if i != 14:
-			preset_tiles.append(2)
-		else:
-			preset_tiles.append(3)
+	UP_BORDER_COLOUR = sides_dict[p_UP_BORDER_COLOUR]
+	DOWN_BORDER_COLOUR = sides_dict[p_DOWN_BORDER_COLOUR]
 
 	matrix = [[[0 for k in range(4)] for j in range(cols)] for i in range(rows)]
 

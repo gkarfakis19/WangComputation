@@ -23,7 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CrippledTuringSpec.py">
+    <Compile Include="MinTuringSpec.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TuringSpec.py">
