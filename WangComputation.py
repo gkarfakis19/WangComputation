@@ -98,6 +98,12 @@ def SearchTableWTwo(table,des_colour0,pos0,des_colour1,pos1,restricted_colour = 
 
 def SearchTableWThree(table,des_colour0,pos0,des_colour1,pos1,des_colour2,pos2,trans_allowed = True):
 	findings = []
+	if des_colour1 == None:
+		return SearchTableWTwo(table,des_colour0,pos0,des_colour2,pos2)
+	elif des_colour0 == None:
+		return SearchTableWTwo(table,des_colour1,pos1,des_colour1,pos1)
+	elif des_colour2 == None:
+		return SearchTableWTwo(table,des_colour1,pos1,des_colour0,pos0)
 	for i,tile in enumerate(table):
 		if tile.colours[pos0] == des_colour0 and tile.colours[pos1] == des_colour1 and tile.colours[pos2] == des_colour2 and not(not trans_allowed and tile.istrans):
 			findings.append(tile)
@@ -106,6 +112,8 @@ def SearchTableWThree(table,des_colour0,pos0,des_colour1,pos1,des_colour2,pos2,t
 		return table.index(findings[rand-1]),findings[rand-1].istrans
 	return None,False
 
+
+## LEGACY - NO LONGER USED, COLOURS ARE COMPARED DIRECTLY INSTEAD
 parsed_spec =[]
 for i,tile in enumerate(spec):
 	parsed_spec.append([])
@@ -485,12 +493,19 @@ if __name__=='__main__' and Mode == Modes.TURING_M:
 	screen.fill((255, 255, 255))
 	cols = int(DISP[0]/W)
 
-	preset_table = []
-	for i in range(0,rows):
-		preset_table.append((0,i))
+	if STATE_TILES:
+		preset_table = []
+		for i in range(0,rows):
+			preset_table.append((0,i))
 
-	UP_BORDER_COLOUR = sides_dict[p_UP_BORDER_COLOUR]
-	DOWN_BORDER_COLOUR = sides_dict[p_DOWN_BORDER_COLOUR]
+		UP_BORDER_COLOUR = sides_dict[p_UP_BORDER_COLOUR]
+		DOWN_BORDER_COLOUR = sides_dict[p_DOWN_BORDER_COLOUR]
+	else:
+		preset_table = []
+		preset_table.append((0,0))
+
+		UP_BORDER_COLOUR = None
+		DOWN_BORDER_COLOUR = None
 
 	matrix = [[[0 for k in range(4)] for j in range(cols)] for i in range(rows)]
 
@@ -527,6 +542,15 @@ if __name__=='__main__' and Mode == Modes.TURING_M:
 							PlaceErrTile((j*W,i*H),matrix)
 							prev_was_trans = False
 							continue
+					elif j==0: # first vert
+							des_colour = matrix[i-1][j][1]
+							res,prev_was_trans = SearchTableWTwo(table,des_colour,3,None, 0, None, not prev_was_trans)
+							if res is not None:
+								PlaceTile(res,(j*W,i*H),matrix)
+							else:
+								PlaceErrTile((j*W,i*H),matrix)
+								prev_was_trans = False
+							i+=1
 					elif i==rows-1: # last horiz
 						des_colour0 = matrix[i-1][j][1]
 						des_colour1 = matrix[i][j-1][2]
@@ -540,28 +564,18 @@ if __name__=='__main__' and Mode == Modes.TURING_M:
 							i-=1
 							prev_was_trans = False
 							continue
-					else:
-						if j==0: # first vert
-							des_colour = matrix[i-1][j][1]
-							res,prev_was_trans = SearchTableWTwo(table,des_colour,3,None, 0, None, not prev_was_trans)
-							if res is not None:
-								PlaceTile(res,(j*W,i*H),matrix)
-							else:
-								PlaceErrTile((j*W,i*H),matrix)
-								prev_was_trans = False
+					else: #normal case
+						des_colour0 = matrix[i-1][j][1]
+						des_colour1 = matrix[i][j-1][2]
+						res,prev_was_trans = SearchTableWTwo(table,des_colour0,3,des_colour1,0, None, not prev_was_trans)
+						if res is not None:
+							PlaceTile(res,(j*W,i*H),matrix)
 							i+=1
-						else: #normal case
-							des_colour0 = matrix[i-1][j][1]
-							des_colour1 = matrix[i][j-1][2]
-							res,prev_was_trans = SearchTableWTwo(table,des_colour0,3,des_colour1,0, None, not prev_was_trans)
-							if res is not None:
-								PlaceTile(res,(j*W,i*H),matrix)
-								i+=1
-							else:
-								PlaceErrTile((j*W,i*H),matrix)
-								i-=1
-								prev_was_trans = False
-								continue
+						else:
+							PlaceErrTile((j*W,i*H),matrix)
+							i-=1
+							prev_was_trans = False
+							continue
 			else:
 				Err_backlog = 0
 				i=0

@@ -11,26 +11,6 @@ if Manual:
         W=20
         H=20
 
-    RED = (0,0,255)
-    GREEN = (0,255,0)
-    BLUE = (255,0,0)
-    YELLOW = (0,255,255)
-    MAGENTA = (180,0,180)
-    CYAN = (255,255,0)
-    ORANGE = (0,160,255)
-    BEIGE = (0,204,204)
-    PINK = (140,80,255)
-    LIME = (150,255,120)
-    NAVY = (160,70,0)
-    GREY = (180,180,180)
-    DGREY = (110,110,110)
-    COL0 = (200,200,0)
-    COL1 = (80,0,80)
-    COL2 = (80,80,0)
-    COL3 = (200,200,0)
-    NOP = (0)
-    WHITE = NOP
-
     path = 'C:/Users/georg/source/repos/WangComputation/Images/'
 
     def my_line(img, start, end,thick=1):
@@ -66,42 +46,19 @@ if Manual:
                 index+=1
                 if column!=0:
                     triangle_fill(image,index,column)
+            ## TOGGLE COMMENT ON THESE LINES TO GET A GRID INTERFACE
             #my_line(image,(0,0),(W,H))
             #my_line(image,(0,H),(W,0))
             #my_line(image,(0,0),(0,H))
             #my_line(image,(0,H),(W,H))
             #my_line(image,(W,H),(W,0))
             #my_line(image,(W,0),(0,0))
+            ##########################################################
             image_arr.append(image)
 
         return image_arr;
 
-    #spec = [(GREEN,RED,RED,RED), #WIKIPEDIA
-    #        (GREEN,BLUE,RED,BLUE),
-    #        (GREEN,GREEN,GREEN,RED),
-    #        (BLUE,RED,BLUE,ORANGE),
-    #        (BLUE,ORANGE,BLUE,BLUE),
-    #        (ORANGE,RED,ORANGE,ORANGE),
-    #        (ORANGE,BLUE,GREEN,RED),
-    #        (RED,BLUE,ORANGE,BLUE),
-    #        (RED,ORANGE,RED,BLUE),
-    #        (RED,BLUE,GREEN,GREEN),
-    #        (GREEN,RED,ORANGE,RED),
-    #        (NOP,NOP,NOP,NOP)]
-
-    #spec = [(BLUE,LIME,BLUE,LIME), #WORKS
-    #        (LIME,BLUE,LIME,BLUE),
-    #        (LIME,BLUE,BLUE,BLUE),
-    #        (BLUE,BLUE,BLUE,LIME),
-    #        (LIME,LIME,LIME,BLUE),
-    #        (LIME,LIME,BLUE,CYAN),
-    #        (CYAN,BLUE,BLUE,LIME),
-    #        (BLUE,BLUE,CYAN,BLUE),
-    #        (CYAN,CYAN,LIME,CYAN),
-    #        (CYAN,BLUE,BLUE,CYAN),
-    #        (LIME,BLUE,CYAN,LIME),
-    #        (CYAN,LIME,LIME,BLUE),
-    #        (NOP,NOP,NOP,NOP)]
+    ## OLD STYLE SPEC CALLS - DEPRECATED, USE TURING MACHINES INSTEAD ##
 
     #spec = [(NOP,NOP,NOP,NOP), #ADDITION
     #        (GREY,NOP,NOP,NOP),
@@ -178,6 +135,7 @@ if Manual:
     #        (CYAN,DGREY,WHITE,GREY), 
     #        (PINK,PINK,PINK,PINK)]
 
+    ###################################################################
     if  __name__=='__main__':
         image_arr = TileGen(spec)
         index=0

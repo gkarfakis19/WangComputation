@@ -26,7 +26,7 @@
     <Compile Include="MinTuringSpec.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TuringSpec.py">
+    <Compile Include="Spec_repo.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TileClass.py" />
